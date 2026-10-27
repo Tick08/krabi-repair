@@ -1,0 +1,551 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><style>body{margin:0}</style></head><body><title>งานซ่อมท่อ กปภ.กระบี่</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&display=swap">
+<style>
+/* Layout: teal header band with filters → KPI strip → tabbed sections (overview, teams, area & type, open jobs, actions) → footer. */
+:root {
+  --bg: #f2f5f7; --panel: #ffffff; --ink: #13222c; --muted: #5b6c78; --line: #dbe3e9; --soft: #edf2f5;
+  --brand: #0b5c73; --brand-ink: #ffffff; --brand-soft: #e1eff3;
+  --ok: #23845a; --warn: #c27a0e; --bad: #c0392b;
+  --ag0: #9fcdb6; --ag1: #efcf86; --ag2: #c27a0e; --ag3: #e07b6e; --ag4: #9e2a1f;
+  --heat: 192, 57, 43;
+  --display: "Bai Jamjuree", "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+  --body: "IBM Plex Sans Thai", "Noto Sans Thai", "Leelawadee UI", sans-serif;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d151b; --panel: #15212a; --ink: #e3ecf1; --muted: #93a6b3; --line: #263642; --soft: #1b2a35;
+  --brand: #0f4d60; --brand-ink: #eaf5f8; --brand-soft: #173a46;
+  --ok: #57c38c; --warn: #e3a54a; --bad: #ee7a6c;
+  --ag0: #3f8f6a; --ag1: #a8893f; --ag2: #d0902a; --ag3: #d06a5c; --ag4: #f08b7c;
+  --heat: 238, 122, 108; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #0d151b; --panel: #15212a; --ink: #e3ecf1; --muted: #93a6b3; --line: #263642; --soft: #1b2a35;
+  --brand: #0f4d60; --brand-ink: #eaf5f8; --brand-soft: #173a46;
+  --ok: #57c38c; --warn: #e3a54a; --bad: #ee7a6c;
+  --ag0: #3f8f6a; --ag1: #a8893f; --ag2: #d0902a; --ag3: #d06a5c; --ag4: #f08b7c;
+  --heat: 238, 122, 108; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.6; }
+.band { background: var(--brand); color: var(--brand-ink); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band .wrap { padding-block: 22px 18px; display: flex; flex-direction: column; gap: 14px; }
+.hrow { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px 24px; }
+.eyebrow { font-size: 12.5px; opacity: .85; letter-spacing: .03em; }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3.4vw, 34px); line-height: 1.2; margin: 2px 0 0; text-wrap: balance; }
+.asof { font-size: 13px; opacity: .9; text-align: right; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.filters label { font-size: 12.5px; opacity: .85; }
+.filters select { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.12); color: var(--brand-ink); min-width: 0; max-width: 100%; }
+.filters select option { color: #13222c; background: #fff; }
+.fgroup { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.btn-reset { font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,.45); background: transparent; color: var(--brand-ink); cursor: pointer; }
+.btn-reset:hover { background: rgba(255,255,255,.12); }
+main.wrap { padding-block: 20px 40px; display: flex; flex-direction: column; gap: 18px; }
+.take { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--brand); border-radius: var(--r); padding: 12px 16px; font-size: 16px; line-height: 1.7; }
+.take b { font-weight: 600; }
+.take .bad { color: var(--bad); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 165px), 1fr)); gap: 10px; }
+.kpi { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; border-top: 3px solid var(--line); }
+.kpi.ok { border-top-color: var(--ok); } .kpi.warn { border-top-color: var(--warn); } .kpi.bad { border-top-color: var(--bad); }
+.kpi .l { font-size: 13px; color: var(--muted); }
+.kpi .v { font-family: var(--display); font-size: 32px; font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.kpi.ok .v { color: var(--ok); } .kpi.warn .v { color: var(--warn); } .kpi.bad .v { color: var(--bad); }
+.kpi .s { font-size: 12.5px; color: var(--muted); }
+.tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.tab { font: inherit; font-size: 15px; font-weight: 500; padding: 10px 14px; border: 0; border-bottom: 3px solid transparent; background: none; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.tab[aria-selected="true"] { color: var(--brand); border-bottom-color: var(--brand); }
+:root:not([data-theme="light"]) .tab[aria-selected="true"] { color: var(--ink); }
+:root[data-theme="light"] .tab[aria-selected="true"] { color: var(--brand); }
+.tab:focus-visible, select:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+.panel-sec { display: flex; flex-direction: column; gap: 14px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 14px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; min-width: 0; }
+.card h2 { font-family: var(--display); font-size: 17px; font-weight: 600; margin: 0; }
+.card .note { font-size: 13px; color: var(--muted); margin: 2px 0 12px; }
+.chart { position: relative; min-height: 120px; }
+.legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin-bottom: 8px; }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+.tip { position: absolute; pointer-events: none; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.14); padding: 6px 10px; font-size: 12.5px; white-space: nowrap; z-index: 5; display: none; }
+.tip .h { color: var(--muted); margin-bottom: 2px; }
+.find { background: var(--panel); border: 1px solid var(--bad); border-radius: var(--r); padding: 14px 16px; line-height: 1.7; }
+.find b { color: var(--bad); }
+.teams { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 12px; }
+.tcard { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; grid-template-columns: 76px 1fr; gap: 4px 14px; align-items: center; }
+.tcard h3 { grid-column: 1 / -1; margin: 0 0 4px; font-size: 15.5px; font-weight: 600; }
+.ring text { font-family: var(--display); font-weight: 600; }
+.tstats { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 13.5px; }
+.tstats span:nth-child(even) { text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tstats .bad { color: var(--bad); }
+.scroll { overflow: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; font-size: 12.5px; position: sticky; top: 0; background: var(--panel); z-index: 1; }
+td.n, th.n { text-align: right; }
+td:first-child { white-space: nowrap; }
+.heat td.c { text-align: center; min-width: 38px; font-weight: 600; }
+.heat th.v { writing-mode: horizontal-tb; white-space: nowrap; }
+.age { font-weight: 600; } .age.bad { color: var(--bad); } .age.warn { color: var(--warn); }
+.pill { display: inline-block; padding: 0 8px; border-radius: 10px; font-size: 12px; border: 1px solid currentColor; white-space: nowrap; }
+.pill.bad { color: var(--bad); } .pill.ok { color: var(--ok); } .pill.warn { color: var(--warn); }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.chip { font: inherit; font-size: 13px; padding: 5px 11px; border-radius: 14px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--brand); color: var(--brand-ink); border-color: var(--brand); }
+.tools input { font: inherit; font-size: 14px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); flex: 1 1 200px; min-width: 0; }
+.count { font-size: 13px; color: var(--muted); margin-left: auto; }
+.tall { max-height: 560px; }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 12px; list-style: none; margin: 0; padding: 0; }
+.steps li { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; border-top: 3px solid var(--brand); }
+.steps b { display: block; font-family: var(--display); font-size: 16px; margin-bottom: 4px; }
+.steps p { margin: 0; font-size: 14px; color: var(--ink); }
+.steps .when { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+footer.wrap { padding-block: 0 32px; font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+.empty { color: var(--muted); font-size: 13.5px; padding: 8px 0; }
+@media (max-width: 640px) { .hide-sm { display: none; } .asof { text-align: left; } .kpi .v { font-size: 26px; } }
+</style>
+
+<div class="band">
+  <div class="wrap">
+    <div class="hrow">
+      <div>
+        <div class="eyebrow">การประปาส่วนภูมิภาคสาขากระบี่ · งานบริการและซ่อมบำรุงท่อ</div>
+        <h1>ติดตามงานแจ้งซ่อมท่อ</h1>
+      </div>
+      <div class="asof">ทะเบียนรับแจ้ง-งานซ่อมท่อ ปีงบประมาณ 2570<br>ข้อมูล ณ 27 ต.ค. 2569 เวลา 10:00 น.</div>
+    </div>
+    <div class="filters" role="group" aria-label="ตัวกรองข้อมูล">
+      <div class="fgroup"><label for="f-from">ตั้งแต่</label><select id="f-from"></select><label for="f-to">ถึง</label><select id="f-to"></select></div>
+      <div class="fgroup"><label for="f-team">ทีม</label><select id="f-team"></select></div>
+      <div class="fgroup"><label for="f-tb">ตำบล</label><select id="f-tb"></select></div>
+      <button class="btn-reset" id="reset" type="button">ล้างตัวกรอง</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <p class="take" id="take"></p>
+  <section class="kpis" id="kpis"></section>
+
+  <nav class="tabs" role="tablist" aria-label="หมวดข้อมูล">
+    <button class="tab" role="tab" id="t-overview" data-tab="overview" aria-selected="true">ภาพรวม</button>
+    <button class="tab" role="tab" id="t-teams" data-tab="teams" aria-selected="false">ทีมซ่อม</button>
+    <button class="tab" role="tab" id="t-area" data-tab="area" aria-selected="false">พื้นที่และประเภทงาน</button>
+    <button class="tab" role="tab" id="t-open" data-tab="open" aria-selected="false">งานค้าง</button>
+    <button class="tab" role="tab" id="t-plan" data-tab="plan" aria-selected="false">ข้อเสนอการติดตาม</button>
+  </nav>
+
+  <section class="panel-sec" id="overview" role="tabpanel">
+    <div class="card">
+      <h2>จำนวนงานรับแจ้งรายวัน</h2>
+      <p class="note">เขียว = ปิดแล้ว · แดง = ยังไม่ปิด · เส้น = อัตราปิดงานสะสม</p>
+      <div class="legend"><span><i style="background:var(--ok)"></i>ซ่อมแล้วเสร็จ</span><span><i style="background:var(--bad)"></i>ยังไม่ปิด</span><span><i style="background:var(--brand);height:3px;vertical-align:3px"></i>อัตราปิดงานสะสม</span></div>
+      <div class="chart" id="c-daily"></div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h2>อายุงานที่ยังไม่ปิด</h2>
+        <p class="note">จำนวนวันนับจากวันรับแจ้งถึงวันรับแจ้งล่าสุดในทะเบียน</p>
+        <div class="chart" id="c-age"></div>
+      </div>
+      <div class="card">
+        <h2>ช่องทางรับแจ้ง</h2>
+        <p class="note">สัดส่วนงานตามช่องทางที่ผู้ใช้น้ำหรือเจ้าหน้าที่แจ้งเข้ามา</p>
+        <div class="chart" id="c-channel"></div>
+      </div>
+    </div>
+    <div class="find" id="finding"><b>ข้อค้นพบสำคัญ:</b> งานที่เพิ่งรับแจ้งถูกปิดเร็ว แต่งานค้างเก่าไม่มีการย้อนกลับมาปิดในทะเบียน ตัวเลขงานค้างจึงรวมทั้งงานที่ค้างจริงและงานที่ซ่อมแล้วแต่ยังไม่ได้บันทึก ควรให้ทุกทีมยืนยันสถานะงานค้างทั้งหมดก่อนใช้ตัวเลขประเมินผล</div>
+  </section>
+
+  <section class="panel-sec" id="teams" role="tabpanel" hidden>
+    <div class="teams" id="team-cards"></div>
+    <div class="grid2">
+      <div class="card">
+        <h2>อายุงานค้างแยกทีม</h2>
+        <p class="note">สีเข้มขึ้น = ค้างนานขึ้น</p>
+        <div class="legend" id="age-legend"></div>
+        <div class="chart" id="c-team-age"></div>
+      </div>
+      <div class="card">
+        <h2>งานค้างของแต่ละทีมแยกประเภท</h2>
+        <p class="note">ช่องสีเข้ม = งานค้างมาก</p>
+        <div class="scroll"><table class="heat" id="h-team-type"></table></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel-sec" id="area" role="tabpanel" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h2>พื้นที่ (ตำบล)</h2>
+        <p class="note">จำนวนรับแจ้ง · ส่วนสีแดงคือยังไม่ปิด · กดแท่งเพื่อกรองทั้งหน้าตามตำบล</p>
+        <div class="chart" id="c-tambon"></div>
+      </div>
+      <div class="card">
+        <h2>ประเภทงาน</h2>
+        <p class="note">จำนวนรับแจ้ง · ส่วนสีแดงคือยังไม่ปิด</p>
+        <div class="chart" id="c-type"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>งานค้างตามตำบลและประเภทงาน</h2>
+      <p class="note">ใช้ดูว่าพื้นที่ไหนมีปัญหาประเภทใดค้างสะสม</p>
+      <div class="scroll"><table class="heat" id="h-tb-type"></table></div>
+    </div>
+  </section>
+
+  <section class="panel-sec" id="open" role="tabpanel" hidden>
+    <div class="grid2">
+      <div class="card">
+        <h2>ท่อเมนเกิน 2 นิ้วที่ยังไม่ปิด</h2>
+        <p class="note">กระทบน้ำสูญเสียโดยตรง</p>
+        <div class="scroll"><table id="t-mains"></table></div>
+      </div>
+      <div class="card">
+        <h2>น้ำไม่ไหล / น้ำขุ่น ค้างนานที่สุด</h2>
+        <p class="note">กระทบผู้ใช้น้ำโดยตรง · 10 รายการแรก</p>
+        <div class="scroll"><table id="t-supply"></table></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>รายการงานที่ยังไม่ปิดทั้งหมด</h2>
+      <p class="note">เรียงจากค้างนานที่สุด · เกินเป้า = ค้างนานกว่าเวลามาตรฐานที่เสนอของงานประเภทนั้น</p>
+      <div class="tools">
+        <button class="chip" type="button" id="ch-all" data-f="all" aria-pressed="true">ทั้งหมด</button>
+        <button class="chip" type="button" id="ch-over" data-f="over" aria-pressed="false">เกินเป้า</button>
+        <button class="chip" type="button" id="ch-7" data-f="o7" aria-pressed="false">เกิน 7 วัน</button>
+        <button class="chip" type="button" id="ch-sup" data-f="sup" aria-pressed="false">น้ำไม่ไหล/ขุ่น</button>
+        <button class="chip" type="button" id="ch-rep" data-f="rep" aria-pressed="false">แจ้งซ้ำ</button>
+        <input type="search" id="q" placeholder="ค้นหาเลขที่งาน ตำบล ประเภท" aria-label="ค้นหางานค้าง">
+        <span class="count" id="cnt"></span>
+      </div>
+      <div class="scroll tall"><table id="tbl-open"></table></div>
+    </div>
+  </section>
+
+  <section class="panel-sec" id="plan" role="tabpanel" hidden>
+    <ol class="steps">
+      <li><b>1. ล้างงานค้างเก่า</b><p>ให้ทุกทีมยืนยันสถานะงานที่ยังไม่ปิด แยกเป็น ซ่อมแล้วแต่ไม่ได้ปิด / รอวัสดุ / รอหน่วยงานอื่น / ยังไม่ได้เข้า เริ่มจากงานน้ำไม่ไหลของทีม.ประปากระบี่</p><div class="when">ภายใน 3 วันทำการ · หัวหน้างานบริการฯ</div></li>
+      <li><b>2. ปรับทะเบียนให้ติดตามได้</b><p>บังคับกรอกวันที่ซ่อมแล้วเสร็จ (คอลัมน์ V ยังว่างทุกแถว) เพิ่มช่องสาเหตุที่ค้าง และทำสถานะเป็นตัวเลือก เพื่อวัดเวลาซ่อมจริงได้</p><div class="when">ภายในสัปดาห์นี้ · ผู้ดูแลทะเบียน</div></li>
+      <li><b>3. เวลามาตรฐานและการยกระดับ</b><p>ค้างเกิน 3 วัน หัวหน้างานติดตามและรายงานเหตุผล · เกิน 7 วัน รายงานผู้ช่วยผู้จัดการ · ผู้รับจ้างเกินกำหนด ทำหนังสือเร่งรัดตามเงื่อนไขสัญญา</p><div class="when">ประกาศใช้หลังเทียบเกณฑ์ กปภ. และสัญญา</div></li>
+      <li><b>4. จังหวะการติดตาม</b><p>ทุกเช้าส่งรายการงานเกินกำหนดแยกทีมทาง LINE · ทุกวันศุกร์ปิดสถานะงานของสัปดาห์ · ทุกวันจันทร์สรุปเสนอผู้จัดการสาขา</p><div class="when">เริ่มทันที · ผู้ช่วยผู้จัดการ</div></li>
+    </ol>
+    <div class="card">
+      <h2>เวลามาตรฐานที่เสนอ</h2>
+      <p class="note">ใช้คำนวณ "เกินเป้า" ในหน้านี้ · เป็นข้อเสนอเบื้องต้น ยังไม่ใช่เกณฑ์ทางการ</p>
+      <table>
+        <thead><tr><th>ประเภทงาน</th><th>เป้าหมายปิดงาน</th><th class="n">งานค้างที่เกินเป้า</th></tr></thead>
+        <tbody id="sla-body"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  ที่มา: ทะเบียนรับแจ้ง-งานซ่อมท่อ กปภ.สาขากระบี่ 2570 (แท็บ KB-2570) · "ยังไม่ปิด" หมายถึงสถานะในทะเบียนไม่ใช่ "ซ่อมแล้วเสร็จ" อาจเป็นงานค้างจริงหรือยังไม่ได้อัปเดต · หน้านี้เป็นภาพข้อมูล ณ เวลาที่ระบุ ไม่อัปเดตอัตโนมัติ · ไม่แสดงชื่อ เบอร์โทร และบ้านเลขที่ของผู้แจ้ง
+</footer>
+
+<script>
+const DATA = {"jobs":[[1,7,"V","K","n","C",1,0],[2,7,"P","K","p","W",1,1],[3,7,"P","K","t","L",0,0],[4,7,"N","T","s","W",1,0],[5,7,"M","K","s","W",1,0],[6,7,"P","K","p","C",1,1],[7,7,"S","K","n","W",0,1],[8,7,"P","K","y","V",1,0],[9,7,"H","K","k","O",1,0],[10,7,"M","K","p","W",1,1],[11,7,"N","T","p","W",0,1],[12,7,"M","K","s","W",1,0],[13,7,"P","K","p","S",1,0],[14,7,"P","K","s","S",1,0],[15,7,"P","K","a","W",1,0],[16,7,"P","K","p","S",1,0],[17,7,"P","K","p","C",0,0],[18,7,"P","K","p","C",1,1],[19,7,"J","K","p","S",1,0],[20,7,"J","K","p","S",1,0],[21,7,"J","K","p","S",1,0],[22,7,"P","K","k","C",1,0],[23,7,"G","K","k","A",1,0],[24,7,"J","K","p","S",1,0],[25,7,"J","K","p","S",1,0],[26,7,"P","K","k","W",1,0],[27,7,"P","K","k","W",1,0],[28,7,"H","K","k","W",1,0],[29,7,"N","T","t","W",1,0],[30,7,"H","K","k","O",1,0],[31,7,"P","K","p","-",1,0],[32,7,"P","K","p","V",1,0],[33,7,"P","K","y","F",1,0],[34,8,"H","K","k","-",1,0],[35,8,"P","K","y","W",0,1],[36,8,"N","T","s","W",1,0],[37,8,"P","K","y","V",1,0],[38,8,"P","K","y","V",0,0],[39,8,"P","K","t","V",1,0],[40,8,"V","T","p","V",1,0],[41,8,"N","T","a","W",1,0],[42,8,"N","T","g","W",0,1],[43,8,"P","D","e","W",1,1],[44,8,"P","K","p","C",1,0],[45,8,"V","T","a","D",0,0],[46,8,"V","T","a","D",0,0],[47,8,"R","T","p","W",0,1],[48,8,"G","K","s","A",1,0],[49,8,"P","K","s","A",1,0],[50,8,"S","K","s","C",1,1],[51,8,"P","K","k","-",1,0],[52,8,"P","K","s","D",1,0],[53,8,"P","K","s","D",1,0],[54,8,"J","T","a","W",0,1],[55,8,"N","T","e","W",0,0],[56,8,"P","K","s","D",0,0],[57,8,"M","K","a","W",1,0],[58,8,"P","K","y","W",1,0],[59,8,"N","T","t","W",0,0],[60,8,"M","K","p","W",1,0],[61,9,"P","K","p","D",1,0],[62,9,"V","T","p","D",1,0],[63,9,"P","K","k","D",0,0],[64,9,"P","K","p","W",1,0],[65,9,"P","K","y","W",1,0],[66,9,"P","K","y","W",0,0],[67,9,"N","T","s","W",0,0],[68,9,"P","K","k","-",1,0],[69,9,"P","K","n","C",1,1],[70,9,"P","D","k","C",1,0],[71,9,"G","T","k","D",0,0],[72,9,"Y","K","k","-",1,0],[73,9,"P","D","e","C",0,0],[74,9,"P","K","y","-",1,0],[75,9,"P","K","y","-",0,0],[76,9,"M","K","s","A",1,0],[77,10,"P","K","s","W",0,0],[78,10,"P","K","k","D",1,0],[79,10,"P","D","k","D",1,0],[80,10,"P","D","k","D",1,0],[81,10,"N","K","k","L",1,0],[82,10,"Y","K","e","L",1,0],[83,10,"P","K","a","W",1,0],[84,10,"P","D","k","D",1,0],[85,10,"P","D","k","C",0,0],[86,10,"Y","K","y","L",1,0],[87,10,"P","K","s","W",1,1],[88,10,"Y","K","e","L",1,0],[89,10,"P","D","e","L",1,0],[90,10,"P","K","e","W",0,0],[91,10,"P","D","k","D",1,0],[92,11,"J","T","c","W",0,1],[93,11,"Y","K","y","L",1,0],[94,11,"N","T","k","W",0,0],[95,11,"N","T","k","W",0,0],[96,11,"M","K","y","C",0,0],[97,11,"P","K","p","W",1,0],[98,11,"Y","K","e","L",1,0],[99,11,"P","K","e","L",1,0],[100,11,"P","K","s","L",1,0],[101,11,"N","T","a","W",0,0],[102,11,"P","K","s","L",1,0],[103,11,"N","T","c","W",0,1],[104,11,"P","K","y","L",1,0],[105,11,"N","T","p","W",0,1],[106,11,"P","K","s","L",1,0],[107,11,"W","T","a","W",0,0],[108,11,"P","K","y","L",1,0],[109,11,"P","K","y","L",0,0],[110,11,"N","T","k","W",0,0],[111,11,"P","K","p","W",0,0],[112,11,"N","T","k","-",0,0],[113,12,"M","T","k","W",1,0],[114,12,"V","T","t","W",1,1],[115,12,"J","K","p","S",0,0],[116,12,"J","K","p","S",1,0],[117,12,"J","K","p","S",0,0],[118,12,"J","K","p","S",0,0],[119,12,"J","K","p","S",0,0],[120,12,"J","K","p","S",0,0],[121,12,"P","K","y","W",1,0],[122,12,"P","K","y","W",1,0],[123,12,"P","K","k","D",0,0],[124,12,"P","K","e","D",0,0],[125,12,"V","K","p","S",0,0],[126,12,"P","K","p","S",0,0],[127,12,"W","T","e","W",1,1],[128,12,"P","K","t","W",1,0],[129,12,"P","K","p","W",1,0],[130,12,"N","T","y","W",0,0],[131,12,"P","K","s","-",1,0],[132,12,"P","K","s","-",0,0],[133,12,"P","K","p","-",1,0],[134,12,"P","K","h","D",1,0],[135,12,"P","K","p","A",1,0],[136,12,"P","K","p","A",1,0],[137,12,"P","K","h","A",1,0],[138,12,"V","T","h","D",0,0],[139,12,"P","K","p","W",1,1],[140,12,"P","K","p","A",1,0],[141,12,"P","K","p","A",1,0],[142,12,"N","T","a","W",0,0],[143,12,"P","K","p","A",1,0],[144,12,"P","K","p","A",1,0],[145,12,"P","K","p","A",1,0],[146,12,"P","K","p","A",1,0],[147,12,"P","K","p","A",0,0],[148,12,"P","K","p","A",0,0],[149,12,"H","K","k","-",1,0],[150,12,"Y","K","k","-",1,0],[151,12,"H","K","k","-",1,0],[152,12,"R","T","p","-",0,0],[153,13,"N","T","k","W",0,1],[154,13,"N","T","a","W",0,0],[155,13,"W","T","a","W",0,0],[156,13,"N","T","a","W",0,0],[157,13,"N","T","t","W",0,0],[158,13,"P","D","k","W",1,0],[159,13,"N","T","t","W",1,0],[160,13,"P","K","p","W",1,0],[161,13,"P","K","p","C",0,0],[162,13,"R","T","x","W",0,0],[163,13,"P","D","e","A",1,0],[164,13,"P","D","e","A",1,0],[165,13,"P","K","p","C",0,0],[166,13,"P","D","e","L",1,0],[167,13,"P","D","e","L",1,0],[168,13,"P","D","e","L",1,0],[169,13,"N","T","k","W",0,1],[170,13,"P","K","y","C",1,0],[171,13,"P","K","h","L",1,0],[172,13,"P","K","h","L",1,0],[173,13,"P","K","p","C",1,1],[174,14,"P","K","p","C",1,0],[175,14,"P","K","p","C",0,0],[176,14,"H","K","k","-",1,0],[177,14,"J","T","a","C",0,1],[178,14,"V","K","k","-",1,0],[179,14,"N","T","t","W",0,0],[180,14,"P","K","h","W",1,0],[181,14,"M","K","y","-",1,0],[182,14,"Y","K","a","S",1,0],[183,14,"N","T","n","W",0,0],[184,14,"J","T","k","V",0,0],[185,14,"N","T","k","W",0,0],[186,14,"P","K","s","W",1,0],[187,14,"P","K","y","-",1,0],[188,14,"P","K","a","-",1,0],[189,14,"P","K","y","-",1,0],[190,14,"N","T","k","W",0,1],[191,14,"Y","K","y","-",1,0],[192,14,"P","K","y","-",1,0],[193,14,"P","K","s","-",1,0],[194,14,"V","T","y","-",1,1],[195,14,"Y","K","p","-",0,0],[196,15,"P","K","s","-",1,0],[197,15,"P","K","s","-",1,0],[198,15,"P","K","p","-",1,0],[199,15,"P","K","a","-",1,0],[200,15,"P","K","p","-",1,0],[201,15,"P","D","k","W",1,0],[202,15,"P","K","p","-",1,0],[203,15,"W","T","s","W",1,1],[204,15,"P","K","a","-",1,1],[205,15,"P","K","a","-",1,0],[206,15,"P","K","y","-",1,0],[207,15,"P","K","k","-",1,0],[208,15,"P","K","p","-",1,0],[209,15,"P","K","y","-",1,0],[210,15,"P","K","y","-",1,0],[211,15,"P","K","h","C",1,0],[212,15,"P","D","k","A",1,0],[213,15,"N","T","p","-",0,0],[214,15,"P","K","s","W",1,0],[215,15,"Y","K","p","-",1,0],[216,15,"V","T","p","V",1,0],[217,15,"P","K","y","-",1,0],[218,15,"P","K","k","-",1,0],[219,15,"P","D","k","A",1,0],[220,15,"P","D","k","A",1,0],[221,15,"P","D","k","A",1,0],[222,15,"P","D","k","A",1,0],[223,15,"P","D","k","A",1,0],[224,15,"Y","K","p","-",1,0],[225,15,"P","K","k","-",1,0],[226,15,"P","K","p","-",1,0],[227,15,"P","K","k","-",1,0],[228,15,"Y","K","p","-",0,0],[229,15,"P","K","k","-",1,0],[230,15,"P","K","h","-",0,0],[231,15,"Y","K","p","-",1,0],[232,15,"P","K","y","-",1,0],[233,15,"P","D","-","A",1,0],[234,15,"P","D","k","A",1,0],[235,15,"P","K","y","A",0,0],[236,15,"P","K","y","A",1,0],[237,15,"P","K","y","A",0,0],[238,15,"Y","K","p","-",1,0],[239,16,"W","T","x","W",1,0],[240,16,"P","D","k","C",1,1],[241,16,"P","D","k","C",1,0],[242,16,"N","T","s","W",0,0],[243,16,"P","K","y","W",1,0],[244,16,"P","D","e","C",1,0],[245,16,"M","K","y","A",0,0],[246,16,"P","K","p","V",0,0],[247,16,"P","K","p","O",0,0],[248,16,"P","K","k","U",1,0],[249,16,"M","K","k","A",0,0],[250,16,"P","D","k","A",1,0],[251,16,"P","K","k","O",0,0],[252,16,"P","K","k","U",1,0],[253,16,"P","K","n","U",1,0],[254,16,"V","T","y","V",1,0],[255,16,"P","K","k","U",0,0],[256,16,"P","K","k","U",0,0],[257,16,"P","K","k","U",0,0],[258,16,"N","T","k","W",0,0],[259,16,"W","D","l","W",1,0],[260,16,"P","K","k","U",0,0],[261,16,"P","K","k","U",0,0],[262,16,"Y","K","p","V",1,0],[263,16,"M","K","k","S",0,0],[264,17,"P","K","h","F",0,0],[265,17,"V","K","s","W",1,0],[266,17,"P","K","s","W",1,0],[267,17,"P","K","y","W",1,0],[268,17,"R","T","g","W",0,1],[269,17,"J","K","e","C",1,0],[270,17,"V","K","y","U",0,0],[271,17,"Y","K","y","O",0,0],[272,17,"P","K","y","U",1,0],[273,17,"P","K","p","O",1,0],[274,17,"S","K","p","L",0,0],[275,17,"P","K","y","W",1,0],[276,17,"J","D","k","W",1,0],[277,17,"P","K","p","U",1,0],[278,17,"P","K","p","U",1,0],[279,18,"R","T","a","W",0,0],[280,18,"R","T","g","W",0,0],[281,18,"W","T","x","W",1,0],[282,18,"N","T","k","W",0,0],[283,18,"P","K","p","W",1,1],[284,18,"V","K","k","U",0,0],[285,18,"G","K","k","L",0,0],[286,18,"P","K","t","L",1,0],[287,18,"P","K","k","L",1,0],[288,18,"P","K","y","L",0,0],[289,18,"P","K","k","L",1,0],[290,18,"P","K","k","L",1,0],[291,18,"P","K","y","L",0,0],[292,18,"N","T","a","W",0,0],[293,19,"P","K","p","C",1,0],[294,19,"X","T","s","V",0,0],[295,19,"V","T","a","V",0,0],[296,19,"R","T","a","W",0,0],[297,19,"P","K","s","V",0,0],[298,19,"P","K","k","U",1,0],[299,19,"P","K","y","U",1,0],[300,19,"P","K","s","U",1,0],[301,19,"P","K","h","U",1,0],[302,19,"A","T","y","W",0,0],[303,19,"P","K","e","W",0,0],[304,19,"R","T","x","W",0,0],[305,19,"N","T","a","W",0,0],[306,19,"Y","K","s","-",1,0],[307,19,"N","T","e","W",0,0],[308,19,"P","K","y","U",1,0],[309,19,"P","K","a","W",0,0],[310,19,"N","T","e","W",0,0],[311,19,"N","N","h","W",0,0],[312,19,"Y","K","s","-",0,0],[313,19,"W","T","k","V",0,0],[314,19,"Y","K","n","-",0,0],[315,19,"N","T","a","W",0,1],[316,20,"N","T","y","W",0,0],[317,20,"N","T","a","W",0,0],[318,20,"P","K","y","V",1,0],[319,20,"M","D","k","U",1,0],[320,20,"N","T","y","W",1,0],[321,20,"N","T","t","W",0,0],[322,20,"M","K","s","L",0,0],[323,20,"Y","K","s","-",1,0],[324,20,"P","K","e","U",1,0],[325,20,"P","K","k","U",1,0],[326,20,"P","K","k","U",1,0],[327,20,"N","T","a","W",0,0],[328,20,"P","K","a","U",0,0],[329,20,"P","K","k","U",1,0],[330,20,"P","K","y","U",1,0],[331,20,"P","K","y","U",0,0],[332,20,"P","K","y","U",1,0],[333,20,"P","K","y","U",1,0],[334,20,"P","K","y","C",0,0],[335,20,"P","K","a","-",0,0],[336,20,"M","K","e","W",0,0],[337,20,"P","K","s","W",0,0],[338,20,"M","K","s","W",1,0],[339,20,"P","K","p","W",1,1],[340,20,"P","K","y","U",1,0],[341,20,"P","K","k","A",1,0],[342,20,"P","K","k","A",0,0],[343,20,"P","K","a","U",0,0],[344,20,"P","K","s","U",1,0],[345,20,"M","K","t","W",1,1],[346,20,"P","K","k","U",0,0],[347,20,"P","K","y","A",1,0],[348,20,"P","K","p","U",1,0],[349,20,"V","T","s","W",0,0],[350,21,"P","K","h","O",1,0],[351,21,"P","K","t","V",0,0],[352,21,"N","T","k","W",1,0],[353,21,"P","K","n","S",0,0],[354,21,"N","T","k","W",1,0],[355,21,"Y","K","n","O",1,0],[356,21,"M","K","s","O",1,0],[357,21,"H","K","k","O",1,0],[358,21,"P","K","y","U",1,0],[359,21,"V","T","p","W",1,0],[360,21,"P","K","p","C",1,0],[361,21,"P","K","a","U",1,0],[362,21,"Y","K","a","O",1,0],[363,21,"P","K","k","U",1,0],[364,21,"Y","K","n","-",1,0],[365,21,"Y","K","n","-",1,0],[366,21,"P","K","y","V",1,0],[367,21,"P","K","p","U",1,0],[368,21,"P","K","y","U",1,0],[369,21,"P","K","s","W",1,0],[370,22,"P","K","p","W",1,0],[371,22,"P","T","y","W",0,0],[372,22,"H","K","k","O",1,0],[373,22,"H","K","e","O",1,0],[374,22,"P","K","e","A",1,0],[375,22,"P","K","e","A",1,0],[376,22,"P","K","k","A",1,0],[377,22,"P","K","h","L",0,0],[378,22,"P","K","a","U",0,0],[379,22,"P","K","y","F",1,0],[380,22,"P","K","k","A",0,0],[381,22,"P","K","a","U",1,0],[382,22,"P","K","k","U",0,0],[383,22,"P","K","p","V",0,0],[384,22,"P","K","k","O",1,0],[385,22,"P","K","s","S",0,0],[386,22,"P","D","g","W",1,0],[387,22,"P","K","p","W",0,1],[388,22,"P","K","e","U",0,0],[389,22,"H","K","y","O",1,0],[390,22,"P","K","n","W",0,0],[391,22,"N","T","t","W",1,0],[392,22,"P","K","p","U",0,0],[393,23,"N","T","t","C",1,0],[394,23,"A","T","p","C",1,0],[395,23,"P","K","s","W",1,0],[396,23,"N","T","a","W",1,0],[397,23,"P","K","n","O",1,0],[398,23,"P","K","p","C",1,0],[399,23,"Y","K","k","O",1,0],[400,23,"L","T","e","W",0,0],[401,23,"V","K","y","U",0,0],[402,23,"Y","K","p","U",1,0],[403,23,"P","K","p","U",1,0],[404,23,"W","T","p","W",1,0],[405,23,"V","T","p","V",1,0],[406,23,"P","K","p","U",1,0],[407,23,"P","D","k","A",1,0],[408,23,"P","K","n","U",1,0],[409,23,"P","K","p","U",1,0],[410,23,"P","K","k","A",0,0],[411,23,"Y","K","y","O",1,0],[412,23,"P","K","s","C",0,0],[413,23,"Y","K","p","O",1,0],[414,23,"P","K","p","U",1,0],[415,24,"P","K","s","L",1,0],[416,24,"N","T","e","W",0,0],[417,24,"N","T","e","W",0,0],[418,24,"Y","K","k","L",1,0],[419,24,"P","K","p","L",1,0],[420,24,"P","K","p","L",1,0],[421,24,"Y","K","p","L",1,0],[422,24,"P","K","p","L",1,0],[423,24,"P","K","p","L",1,0],[424,24,"P","D","k","W",1,0],[425,24,"P","K","s","W",1,0],[426,24,"P","K","p","C",0,0],[427,24,"P","K","h","L",1,0],[428,25,"P","K","p","L",1,0],[429,25,"P","K","y","C",1,0],[430,25,"N","T","e","W",0,0],[431,25,"P","K","s","L",1,0],[432,25,"P","K","y","L",1,0],[433,25,"P","K","y","L",1,0],[434,25,"P","K","t","W",1,0],[435,25,"P","K","s","W",1,0],[436,26,"P","K","p","V",0,0],[437,26,"P","K","a","W",1,0],[438,26,"N","T","a","W",0,0],[439,26,"P","K","a","C",1,0],[440,26,"P","K","a","U",0,0],[441,26,"P","D","k","S",0,0],[442,26,"P","K","h","U",0,0],[443,26,"P","K","h","U",0,0],[444,26,"P","K","y","U",1,0],[445,26,"P","K","p","W",0,0],[446,26,"P","K","p","V",1,0],[447,26,"N","T","a","W",0,0],[448,26,"N","K","s","U",0,0],[449,26,"P","K","s","W",0,0],[450,26,"P","D","y","O",0,0],[451,26,"X","T","p","V",0,0],[452,26,"N","T","p","W",1,0],[453,26,"P","K","y","O",1,0],[454,26,"P","K","p","O",1,0],[455,26,"P","K","k","U",0,0],[456,26,"P","K","y","U",1,0],[457,26,"M","K","n","W",0,0],[458,26,"P","D","k","A",0,0],[459,26,"P","D","k","A",1,0],[460,26,"P","D","k","A",0,0],[461,26,"P","D","k","A",0,0],[462,26,"P","D","k","A",0,0],[463,26,"P","K","y","U",1,0],[464,26,"P","K","t","L",1,0],[465,26,"P","K","k","W",1,0],[466,26,"P","K","a","W",1,0],[467,26,"P","K","a","U",0,0],[468,26,"P","K","p","U",0,0],[469,26,"P","K","e","W",1,0],[470,27,"P","K","p","V",0,0],[471,27,"P","K","p","V",0,0],[472,27,"P","K","p","O",0,0],[473,27,"W","T","h","V",0,0],[474,27,"P","K","y","W",0,0]],"TN":{"P":"ท่อแตกรั่ว ≤2\"","M":"ท่อเมนแตก >2\"","V":"วาล์วชำรุด","N":"น้ำไม่ไหล","A":"น้ำไหลอ่อน","R":"น้ำขุ่น-แดง","J":"ข้อต่อชำรุด","G":"ประตูน้ำ","H":"ยกหีบประตูน้ำ","Y":"ยก/ย้ายมาตร","W":"มาตรวัดน้ำชำรุด","S":"ซ่อมผิวไม่เรียบร้อย","X":"ขามาตรหัก","L":"ท่อลอย"},"TBN":{"n":"หนองทะเล","p":"ปากน้ำ","t":"ทับปริก","s":"ไสไทย","y":"กระบี่ใหญ่","k":"กระบี่น้อย","a":"อ่าวนาง","g":"ปกาสัย","e":"เหนือคลอง","c":"คลองประสงค์","h":"เขาพนม","x":"คลองขนาน","l":"ตลิ่งชัน","-":"ไม่ระบุ"},"TM":{"K":"บจ.ค้ำคูณ แมเนจเม้นท์","T":"ทีม.ประปากระบี่","D":"นายดิเรก สงสังข์","N":"ไม่ระบุทีม"},"CHN":{"C":"Call center 1662","W":"โทรแจ้งผ่านเคาน์เตอร์","L":"Line","V":"มาที่สำนักงาน","O":"อื่นๆ","S":"กปภ.สำรวจพบ","A":"ALC.","F":"Facebook","D":"DPD","U":"ผู้ใช้น้ำแจ้งหน้างาน","-":"ไม่ระบุ"}};
+const LOC = {"96": "หน้าพลับพลา", "245": "หน้า ตชด.426", "249": "แยกไฟแดงถ้ำเสือ", "263": "ม.12", "322": "มัสยิดคลองจิหลาด (อาจซ้ำ KB-70-356)", "336": "โลตัสเหนือคลอง", "457": "โรงเรียนหนองทะเลวิทยา", "11": "บ้านพักศูนย์ป่าชายเลน", "42": "ห้องแถว ม.6", "47": "หลัง รร.อำมาตย์", "55": "หน้า รร.นาออก", "59": "ใกล้ อบต.ทับปริก", "67": "ม.7 ไม่ไหลทั้งบริเวณ", "94": "ใกล้ มบ.วรารมณ์", "95": "บ้านโพธิ์เรียง", "101": "ช่องพลี ซ.5", "103": "หน้า รร.คลองประสงค์", "105": "บ้านพักพนักงาน รพ.กระบี่", "110": "ตรงข้ามวัดถ้ำเสือ", "112": "ม.2"};
+(() => {
+  const TM = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+  const MONTH = 10, BE = 2569;
+  const fmt = (n) => Number(n).toLocaleString('th-TH');
+  const pct = (x) => (x * 100).toFixed(1) + '%';
+  const dLabel = (d) => d + ' ' + TM[MONTH - 1];
+  const SUP = new Set(['N', 'A', 'R']);
+  const slaOf = (t) => (SUP.has(t) || t === 'M') ? 1 : t === 'P' ? 2 : 3;
+  const ALL = DATA.jobs.map(([id, day, tp, tm, tb, ch, done, rep]) => ({ id, day, tp, tm, tb, ch, done: !!done, rep: !!rep }));
+  const LAST = Math.max(...ALL.map((j) => j.day));
+  const FIRST = Math.min(...ALL.map((j) => j.day));
+  ALL.forEach((j) => { j.age = LAST - j.day; j.over = !j.done && j.age > slaOf(j.tp); });
+  const TN = DATA.TN, TBN = DATA.TBN, TMN = DATA.TM, CHN = DATA.CHN;
+  const jid = (n) => 'KB-70-' + String(n).padStart(3, '0');
+
+  const $ = (id) => document.getElementById(id);
+  const el = (tag, attrs = {}, text) => { const e = document.createElement(tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+  const NS = 'http://www.w3.org/2000/svg';
+  const sv = (tag, attrs = {}, text) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; };
+
+  // ---------- filters ----------
+  const state = { from: FIRST, to: LAST, team: '', tb: '' };
+  const days = []; for (let d = FIRST; d <= LAST; d++) days.push(d);
+  const fill = (sel, opts) => sel.replaceChildren(...opts.map(([v, t]) => { const o = new Option(t, v); return o; }));
+  fill($('f-from'), days.map((d) => [d, dLabel(d)]));
+  fill($('f-to'), days.map((d) => [d, dLabel(d)]));
+  const teams = [...new Set(ALL.map((j) => j.tm))];
+  fill($('f-team'), [['', 'ทุกทีม'], ...teams.map((t) => [t, TMN[t]])]);
+  const tbs = Object.entries(ALL.reduce((m, j) => (m[j.tb] = (m[j.tb] || 0) + 1, m), {})).sort((a, b) => b[1] - a[1]).map(([k]) => k);
+  fill($('f-tb'), [['', 'ทุกตำบล'], ...tbs.map((t) => [t, TBN[t]])]);
+  const syncFilters = () => { $('f-from').value = state.from; $('f-to').value = state.to; $('f-team').value = state.team; $('f-tb').value = state.tb; };
+  $('f-from').addEventListener('change', (e) => { state.from = +e.target.value; if (state.from > state.to) state.to = state.from; render(); });
+  $('f-to').addEventListener('change', (e) => { state.to = +e.target.value; if (state.to < state.from) state.from = state.to; render(); });
+  $('f-team').addEventListener('change', (e) => { state.team = e.target.value; render(); });
+  $('f-tb').addEventListener('change', (e) => { state.tb = e.target.value; render(); });
+  $('reset').addEventListener('click', () => { Object.assign(state, { from: FIRST, to: LAST, team: '', tb: '' }); render(); });
+  const sel = () => ALL.filter((j) => j.day >= state.from && j.day <= state.to && (!state.team || j.tm === state.team) && (!state.tb || j.tb === state.tb));
+
+  // ---------- tabs ----------
+  const TABS = ['overview', 'teams', 'area', 'open', 'plan'];
+  let tab = 'overview';
+  const showTab = (t, push) => {
+    if (!TABS.includes(t)) t = 'overview';
+    tab = t;
+    document.querySelectorAll('.tab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === t)));
+    TABS.forEach((x) => { $(x).hidden = x !== t; });
+    if (push) { try { history.replaceState(null, '', '#' + t); } catch (e) {} }
+    render();
+  };
+  document.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => showTab(b.dataset.tab, true)));
+
+  // ---------- helpers ----------
+  function tip(box) {
+    let t = box.querySelector(':scope > .tip');
+    if (!t) { t = el('div', { class: 'tip' }); box.appendChild(t); }
+    return {
+      show(ev, head, lines) {
+        t.replaceChildren(el('div', { class: 'h' }, head));
+        lines.forEach(([c, n, v]) => {
+          const r = el('div');
+          if (c) { const i = el('i'); i.style.cssText = 'display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:6px;background:' + c; r.appendChild(i); }
+          r.appendChild(document.createTextNode(n + '  ' + v)); t.appendChild(r);
+        });
+        t.style.display = 'block';
+        const b = box.getBoundingClientRect();
+        let x = ev.clientX - b.left + 12, y = ev.clientY - b.top + 12;
+        if (x + t.offsetWidth > b.width) x = ev.clientX - b.left - t.offsetWidth - 12;
+        if (x < 0) x = 0;
+        if (y + t.offsetHeight > b.height) y = Math.max(0, ev.clientY - b.top - t.offsetHeight - 12);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.style.display = 'none'; },
+    };
+  }
+  const svgBox = (box, W, H) => { box.querySelectorAll(':scope > svg, :scope > .empty').forEach((n) => n.remove()); const s = sv('svg', { width: '100%', viewBox: `0 0 ${W} ${H}`, role: 'img' }); s.style.fontFamily = 'var(--body)'; box.prepend(s); return s; };
+  const measure = (s, texts, size = 12) => { const g = sv('g', { opacity: 0 }); s.appendChild(g); let w = 0; texts.forEach((x) => { const t = sv('text', { 'font-size': size }, x); g.appendChild(t); w = Math.max(w, t.getComputedTextLength()); }); g.remove(); return w; };
+  const empty = (box, msg) => { box.querySelectorAll(':scope > svg, :scope > .empty').forEach((n) => n.remove()); box.prepend(el('p', { class: 'empty' }, msg || 'ไม่มีข้อมูลในช่วงที่เลือก')); };
+  const group = (rows, key) => { const m = new Map(); rows.forEach((j) => { const k = key(j); const o = m.get(k) || { k, t: 0, d: 0, o: 0, over: 0, o7: 0 }; o.t++; if (j.done) o.d++; else { o.o++; if (j.over) o.over++; if (j.age > 7) o.o7++; } m.set(k, o); }); return [...m.values()]; };
+
+  // ---------- header blocks ----------
+  function renderTop(rows) {
+    const open = rows.filter((j) => !j.done);
+    const s = { t: rows.length, d: rows.length - open.length, o: open.length, over: open.filter((j) => j.over).length, o7: open.filter((j) => j.age > 7).length, o15: open.filter((j) => j.age >= 15).length, sup: open.filter((j) => SUP.has(j.tp)).length, mains: open.filter((j) => j.tp === 'M').length };
+    const rate = s.t ? s.d / s.t : 0;
+    const k = [
+      ['', 'รับแจ้งทั้งหมด', fmt(s.t), dLabel(state.from) + ' – ' + dLabel(state.to)],
+      ['ok', 'อัตราปิดงาน', pct(rate), 'ปิดแล้ว ' + fmt(s.d) + ' งาน'],
+      ['warn', 'ยังไม่ปิดในทะเบียน', fmt(s.o), 'เกินเป้า ' + fmt(s.over) + ' งาน'],
+      ['bad', 'ค้างเกิน 7 วัน', fmt(s.o7), 'เกิน 15 วัน ' + fmt(s.o15) + ' งาน'],
+      ['bad', 'น้ำไม่ไหล / น้ำขุ่น ค้าง', fmt(s.sup), 'กระทบผู้ใช้น้ำโดยตรง'],
+      ['bad', 'ท่อเมน > 2" ค้าง', fmt(s.mains), 'กระทบน้ำสูญเสีย'],
+    ];
+    $('kpis').replaceChildren(...k.map(([c, l, v, sub]) => { const d = el('div', { class: 'kpi ' + c }); d.append(el('div', { class: 'l' }, l), el('div', { class: 'v' }, v), el('div', { class: 's' }, sub)); return d; }));
+    const tk = $('take'); tk.replaceChildren();
+    const scope = [state.team ? TMN[state.team] : '', state.tb ? 'ต.' + TBN[state.tb] : ''].filter(Boolean).join(' · ');
+    const add = (t, cls, bold) => { const n = bold ? el('b', cls ? { class: cls } : {}, t) : document.createTextNode(t); tk.appendChild(n); };
+    if (!s.t) { add('ไม่มีงานในตัวกรองที่เลือก'); return; }
+    add((scope ? scope + ': ' : '') + 'รับแจ้ง '); add(fmt(s.t) + ' งาน', '', true); add(' ปิดแล้ว '); add(pct(rate), '', true);
+    add(' ยังไม่ปิด ' + fmt(s.o) + ' งาน โดย'); add('ค้างเกิน 7 วัน ' + fmt(s.o7) + ' งาน', 'bad', true);
+    if (s.sup) { add(' และ'); add('น้ำไม่ไหล/น้ำขุ่นค้าง ' + fmt(s.sup) + ' งาน', 'bad', true); }
+    const tg = group(open, (j) => j.tm).sort((a, b) => b.o7 - a.o7)[0];
+    if (tg && tg.o7 && !state.team) { add(' งานค้างนานกระจุกที่ '); add(TMN[tg.k], '', true); add(' (' + fmt(tg.o7) + ' งาน)'); }
+  }
+
+  // ---------- overview ----------
+  function daily(rows) {
+    const box = $('c-daily'); const W = box.clientWidth; if (!W) return;
+    const ds = []; for (let d = state.from; d <= state.to; d++) { const r = rows.filter((j) => j.day === d); ds.push({ d, t: r.length, done: r.filter((j) => j.done).length }); }
+    if (!rows.length) return empty(box);
+    const H = 230, m = { l: 32, r: 40, t: 16, b: 24 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const s = svgBox(box, W, H); const tp = tip(box);
+    const mx = Math.max(10, ...ds.map((x) => x.t)); const top = Math.ceil(mx / 10) * 10;
+    const y = (v) => m.t + ih - v / top * ih; const bw = iw / ds.length;
+    for (let v = 0; v <= top; v += top / 5) { s.append(sv('line', { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), style: 'stroke:var(--line)' }), sv('text', { x: m.l - 6, y: y(v) + 4, 'text-anchor': 'end', 'font-size': 11, style: 'fill:var(--muted)' }, String(v))); }
+    [0, .5, 1].forEach((p) => s.append(sv('text', { x: W - m.r + 6, y: m.t + ih - p * ih + 4, 'font-size': 11, style: 'fill:var(--brand)' }, (p * 100) + '%')));
+    let cum = 0, cumD = 0; const pts = [];
+    const every = Math.max(1, Math.ceil(ds.length * 34 / iw));
+    ds.forEach((x, i) => {
+      const bx = m.l + i * bw + bw * .16, w = bw * .68;
+      cum += x.t; cumD += x.done; pts.push([bx + w / 2, m.t + ih - (cum ? cumD / cum : 0) * ih]);
+      s.append(sv('rect', { x: bx, y: y(x.done), width: w, height: m.t + ih - y(x.done), rx: 2, style: 'fill:var(--ok)' }));
+      if (x.t > x.done) s.append(sv('rect', { x: bx, y: y(x.t), width: w, height: y(x.done) - y(x.t), rx: 2, style: 'fill:var(--bad)' }));
+      if (i % every === 0) s.append(sv('text', { x: bx + w / 2, y: H - 6, 'text-anchor': 'middle', 'font-size': 11, style: 'fill:var(--muted)' }, String(x.d)));
+      const hit = sv('rect', { x: m.l + i * bw, y: m.t, width: bw, height: ih, fill: 'transparent' });
+      hit.addEventListener('mousemove', (ev) => tp.show(ev, dLabel(x.d) + ' ' + BE, [[null, 'รับแจ้ง', fmt(x.t) + ' งาน'], ['var(--ok)', 'ปิดแล้ว', fmt(x.done)], ['var(--bad)', 'ยังไม่ปิด', fmt(x.t - x.done)]]));
+      hit.addEventListener('mouseleave', () => tp.hide());
+      s.appendChild(hit);
+    });
+    s.append(sv('polyline', { points: pts.map((p) => p.join(',')).join(' '), fill: 'none', 'stroke-width': 2.5, 'stroke-linejoin': 'round', 'stroke-linecap': 'round', 'pointer-events': 'none', style: 'stroke:var(--brand)' }));
+    const lp = pts[pts.length - 1]; s.append(sv('circle', { cx: lp[0], cy: lp[1], r: 4, 'pointer-events': 'none', style: 'fill:var(--brand)' }));
+  }
+
+  const AGES = [['0–1 วัน', 0, 1, 'var(--ag0)'], ['2–3 วัน', 2, 3, 'var(--ag1)'], ['4–7 วัน', 4, 7, 'var(--ag2)'], ['8–14 วัน', 8, 14, 'var(--ag3)'], ['15 วันขึ้นไป', 15, 999, 'var(--ag4)']];
+  function ageChart(rows) {
+    const box = $('c-age'); const W = box.clientWidth; if (!W) return;
+    const open = rows.filter((j) => !j.done); if (!open.length) return empty(box, 'ไม่มีงานค้างในตัวกรองที่เลือก');
+    const vals = AGES.map(([l, lo, hi, c]) => ({ l, c, v: open.filter((j) => j.age >= lo && j.age <= hi).length }));
+    const H = 210, m = { l: 8, r: 8, t: 22, b: 28 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const s = svgBox(box, W, H); const mx = Math.max(...vals.map((v) => v.v), 1); const bw = iw / vals.length;
+    vals.forEach((v, i) => {
+      const h = v.v / mx * ih, x = m.l + i * bw + bw * .18, w = bw * .64;
+      s.append(sv('rect', { x, y: m.t + ih - h, width: w, height: h, rx: 4, style: 'fill:' + v.c }));
+      s.append(sv('text', { x: x + w / 2, y: m.t + ih - h - 6, 'text-anchor': 'middle', 'font-size': 14, 'font-weight': 600, style: 'fill:var(--ink)' }, fmt(v.v)));
+      s.append(sv('text', { x: x + w / 2, y: H - 8, 'text-anchor': 'middle', 'font-size': 12, style: 'fill:var(--muted)' }, v.l));
+    });
+  }
+
+  function hbars(boxId, items, opts = {}) {
+    const box = $(boxId); const W = box.clientWidth; if (!W) return;
+    if (!items.length) return empty(box);
+    const rh = opts.rh || 26, H = items.length * rh + 4;
+    const s = svgBox(box, W, H); const tp = tip(box);
+    const lw = Math.min(W * .42, measure(s, items.map((i) => i.label)) + 12);
+    const vw = measure(s, items.map((i) => fmt(i.t) + (opts.share ? ' (99.9%)' : ' (999)'))) + 10;
+    const iw = Math.max(30, W - lw - vw); const mx = Math.max(...items.map((i) => i.t), 1);
+    const total = items.reduce((a, i) => a + i.t, 0);
+    items.forEach((it, k) => {
+      const g = sv('g', { transform: `translate(0,${k * rh})` });
+      const lab = sv('text', { x: lw - 8, y: rh / 2 + 4, 'text-anchor': 'end', 'font-size': 12.5, style: 'fill:var(--ink)' }, it.label); g.appendChild(lab);
+      const wd = (it.t - it.o) / mx * iw, wo = it.o / mx * iw;
+      if (opts.share) g.appendChild(sv('rect', { x: lw, y: 6, width: it.t / mx * iw, height: rh - 12, rx: 3, style: 'fill:var(--brand)' }));
+      else { g.appendChild(sv('rect', { x: lw, y: 6, width: wd, height: rh - 12, rx: 3, style: 'fill:var(--ok)' })); if (wo > 0) g.appendChild(sv('rect', { x: lw + wd, y: 6, width: wo, height: rh - 12, rx: 3, style: 'fill:var(--bad)' })); }
+      const vt = sv('text', { x: lw + it.t / mx * iw + 6, y: rh / 2 + 4, 'font-size': 12, style: 'fill:var(--muted)' }, fmt(it.t));
+      if (opts.share) vt.appendChild(sv('tspan', {}, ' (' + (it.t / total * 100).toFixed(1) + '%)'));
+      else if (it.o) { const ts = sv('tspan', { style: 'fill:var(--bad)' }, ' (' + fmt(it.o) + ')'); vt.appendChild(ts); }
+      g.appendChild(vt);
+      const hit = sv('rect', { x: 0, y: 0, width: W, height: rh, fill: 'transparent' });
+      if (opts.onClick) { hit.style.cursor = 'pointer'; hit.addEventListener('click', () => opts.onClick(it)); }
+      hit.addEventListener('mousemove', (ev) => tp.show(ev, it.label, opts.share ? [[null, 'จำนวน', fmt(it.t) + ' งาน (' + (it.t / total * 100).toFixed(1) + '%)']] : [[null, 'รับแจ้ง', fmt(it.t) + ' งาน'], ['var(--ok)', 'ปิดแล้ว', fmt(it.t - it.o)], ['var(--bad)', 'ยังไม่ปิด', fmt(it.o)]]));
+      hit.addEventListener('mouseleave', () => tp.hide());
+      g.appendChild(hit); s.appendChild(g);
+    });
+  }
+
+  // ---------- teams ----------
+  function ring(p) {
+    const s = sv('svg', { width: 76, height: 76, viewBox: '0 0 76 76', class: 'ring' });
+    const r = 30, c = 2 * Math.PI * r;
+    const col = p >= .8 ? 'var(--ok)' : p >= .5 ? 'var(--warn)' : 'var(--bad)';
+    s.append(sv('circle', { cx: 38, cy: 38, r, fill: 'none', 'stroke-width': 8, style: 'stroke:var(--soft)' }));
+    s.append(sv('circle', { cx: 38, cy: 38, r, fill: 'none', 'stroke-width': 8, 'stroke-linecap': 'round', 'stroke-dasharray': `${c * p} ${c}`, transform: 'rotate(-90 38 38)', style: 'stroke:' + col }));
+    s.append(sv('text', { x: 38, y: 43, 'text-anchor': 'middle', 'font-size': 15, style: 'fill:var(--ink)' }, Math.round(p * 100) + '%'));
+    return s;
+  }
+  function teamCards(rows) {
+    const gs = group(rows, (j) => j.tm).sort((a, b) => b.t - a.t);
+    $('team-cards').replaceChildren(...gs.map((g) => {
+      const c = el('div', { class: 'tcard' });
+      c.append(el('h3', {}, TMN[g.k]), ring(g.t ? g.d / g.t : 0));
+      const st = el('div', { class: 'tstats' });
+      [['รับงาน', fmt(g.t), ''], ['ปิดแล้ว', fmt(g.d), ''], ['ยังไม่ปิด', fmt(g.o), ''], ['เกินเป้า', fmt(g.over), g.over ? 'bad' : ''], ['ค้างเกิน 7 วัน', fmt(g.o7), g.o7 ? 'bad' : '']].forEach(([a, b, cls]) => st.append(el('span', {}, a), el('span', cls ? { class: cls } : {}, b)));
+      c.appendChild(st); return c;
+    }));
+    if (!gs.length) $('team-cards').appendChild(el('p', { class: 'empty' }, 'ไม่มีข้อมูลในช่วงที่เลือก'));
+  }
+  function teamAge(rows) {
+    const box = $('c-team-age'); const W = box.clientWidth; if (!W) return;
+    const open = rows.filter((j) => !j.done);
+    const gs = group(open, (j) => j.tm).sort((a, b) => b.o - a.o);
+    if (!gs.length) return empty(box, 'ไม่มีงานค้างในตัวกรองที่เลือก');
+    const rh = 42, H = gs.length * rh + 4; const s = svgBox(box, W, H); const tp = tip(box);
+    const lw = Math.min(W * .4, measure(s, gs.map((g) => TMN[g.k])) + 12); const vw = measure(s, gs.map((g) => fmt(g.o) + ' งาน')) + 10;
+    const iw = Math.max(30, W - lw - vw); const mx = Math.max(...gs.map((g) => g.o));
+    gs.forEach((g, k) => {
+      const y0 = k * rh; const vals = AGES.map(([l, lo, hi, c]) => [l, c, open.filter((j) => j.tm === g.k && j.age >= lo && j.age <= hi).length]);
+      s.append(sv('text', { x: lw - 8, y: y0 + rh / 2 + 4, 'text-anchor': 'end', 'font-size': 12.5, style: 'fill:var(--ink)' }, TMN[g.k]));
+      let x = lw; vals.forEach(([l, c, v]) => { const w = v / mx * iw; if (w > 0) { s.append(sv('rect', { x, y: y0 + 8, width: Math.max(w - 1, .5), height: rh - 16, style: 'fill:' + c })); if (w > 20) s.append(sv('text', { x: x + w / 2, y: y0 + rh / 2 + 4, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 600, style: 'fill:var(--ink)' }, String(v))); } x += w; });
+      s.append(sv('text', { x: x + 6, y: y0 + rh / 2 + 4, 'font-size': 12, style: 'fill:var(--muted)' }, fmt(g.o) + ' งาน'));
+      const hit = sv('rect', { x: 0, y: y0, width: W, height: rh, fill: 'transparent' });
+      hit.addEventListener('mousemove', (ev) => tp.show(ev, TMN[g.k] + ' · ค้าง ' + fmt(g.o) + ' งาน', vals.map(([l, c, v]) => [c, l, fmt(v)])));
+      hit.addEventListener('mouseleave', () => tp.hide()); s.appendChild(hit);
+    });
+  }
+  function heat(tableId, rows, rowKey, rowName, colKey, colName, maxRows) {
+    const t = $(tableId); t.replaceChildren();
+    const open = rows.filter((j) => !j.done);
+    if (!open.length) { t.appendChild(el('caption', { class: 'empty' }, 'ไม่มีงานค้างในตัวกรองที่เลือก')); return; }
+    const rk = group(open, rowKey).sort((a, b) => b.o - a.o).slice(0, maxRows || 99).map((g) => g.k);
+    const ck = group(open, colKey).sort((a, b) => b.o - a.o).map((g) => g.k);
+    const cell = {}; open.forEach((j) => { const k = rowKey(j) + '|' + colKey(j); cell[k] = (cell[k] || 0) + 1; });
+    const mx = Math.max(...Object.values(cell));
+    const thead = el('thead'); const hr = el('tr'); hr.appendChild(el('th', {}, ''));
+    ck.forEach((c) => hr.appendChild(el('th', { class: 'v n' }, colName(c)))); hr.appendChild(el('th', { class: 'n' }, 'รวม')); thead.appendChild(hr); t.appendChild(thead);
+    const tb = el('tbody');
+    rk.forEach((r) => {
+      const tr = el('tr'); tr.appendChild(el('td', {}, rowName(r))); let sum = 0;
+      ck.forEach((c) => { const v = cell[r + '|' + c] || 0; sum += v; const td = el('td', { class: 'c' }, v ? String(v) : ''); if (v) { const a = .12 + .78 * v / mx; td.style.background = `rgba(var(--heat), ${a.toFixed(2)})`; if (a > .55) td.style.color = '#fff'; } tr.appendChild(td); });
+      tr.appendChild(el('td', { class: 'n' }, fmt(sum))); tb.appendChild(tr);
+    });
+    t.appendChild(tb);
+  }
+
+  // ---------- open jobs ----------
+  let chipF = 'all';
+  document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => { chipF = c.dataset.f; document.querySelectorAll('.chip').forEach((x) => x.setAttribute('aria-pressed', String(x === c))); render(); }));
+  $('q').addEventListener('input', () => render());
+  const ageSpan = (a) => el('span', { class: 'age' + (a > 7 ? ' bad' : a > 3 ? ' warn' : '') }, String(a));
+  function simpleTable(t, head, rows) {
+    t.replaceChildren();
+    const th = el('thead'); const tr = el('tr'); head.forEach(([h, c]) => tr.appendChild(el('th', c ? { class: c } : {}, h))); th.appendChild(tr); t.appendChild(th);
+    const tb = el('tbody'); rows.forEach((r) => { const row = el('tr'); r.forEach(([v, c]) => { const td = el('td', c ? { class: c } : {}); if (v instanceof Node) td.appendChild(v); else td.textContent = v; row.appendChild(td); }); tb.appendChild(row); });
+    if (!rows.length) { const row = el('tr'); const td = el('td', { colspan: head.length, class: 'empty' }, 'ไม่มีรายการในตัวกรองที่เลือก'); row.appendChild(td); tb.appendChild(row); }
+    t.appendChild(tb);
+  }
+  function openTabs(rows) {
+    const open = rows.filter((j) => !j.done).sort((a, b) => b.age - a.age || a.id - b.id);
+    const mains = open.filter((j) => j.tp === 'M');
+    simpleTable($('t-mains'), [['เลขที่งาน'], ['ที่ตั้ง'], ['ทีม', 'hide-sm'], ['ค้าง (วัน)', 'n']], mains.map((j) => [[jid(j.id)], [(LOC[j.id] || '') + ' ต.' + TBN[j.tb]], [TMN[j.tm], 'hide-sm'], [ageSpan(j.age), 'n']]));
+    const sup = open.filter((j) => SUP.has(j.tp)).slice(0, 10);
+    simpleTable($('t-supply'), [['เลขที่งาน'], ['ประเภท'], ['ที่ตั้ง'], ['ค้าง (วัน)', 'n']], sup.map((j) => {
+      const loc = el('span', {}, (LOC[j.id] ? LOC[j.id] + ' ' : '') + 'ต.' + TBN[j.tb]);
+      if (j.rep) { loc.append(' '); loc.appendChild(el('span', { class: 'pill warn' }, 'แจ้งซ้ำ')); }
+      return [[jid(j.id)], [TN[j.tp]], [loc], [ageSpan(j.age), 'n']];
+    }));
+    const q = $('q').value.trim().toLowerCase();
+    const list = open.filter((j) => (chipF === 'all' || (chipF === 'over' && j.over) || (chipF === 'o7' && j.age > 7) || (chipF === 'sup' && SUP.has(j.tp)) || (chipF === 'rep' && j.rep))
+      && (!q || [jid(j.id), TN[j.tp], TBN[j.tb], TMN[j.tm]].join(' ').toLowerCase().includes(q)));
+    $('cnt').textContent = 'แสดง ' + fmt(list.length) + ' จาก ' + fmt(open.length) + ' งาน';
+    simpleTable($('tbl-open'), [['เลขที่งาน'], ['วันรับแจ้ง', 'hide-sm'], ['ค้าง (วัน)', 'n'], ['ประเภท'], ['ตำบล'], ['ทีมซ่อม'], ['เทียบเป้า']], list.map((j) => {
+      const p = el('span', { class: 'pill ' + (j.over ? 'bad' : 'ok') }, j.over ? 'เกินเป้า' : 'ภายในเป้า');
+      const cell = el('span'); cell.appendChild(p); if (j.rep) { cell.append(' '); cell.appendChild(el('span', { class: 'pill warn' }, 'แจ้งซ้ำ')); }
+      return [[jid(j.id)], [dLabel(j.day), 'hide-sm'], [ageSpan(j.age), 'n'], [TN[j.tp]], [TBN[j.tb]], [TMN[j.tm]], [cell]];
+    }));
+  }
+  function slaTable(rows) {
+    const open = rows.filter((j) => !j.done);
+    const g = [['น้ำไม่ไหล / น้ำไหลอ่อน / น้ำขุ่น', '24 ชั่วโมง', (j) => SUP.has(j.tp)], ['ท่อเมนแตกเกิน 2 นิ้ว', '24 ชั่วโมง', (j) => j.tp === 'M'], ['ท่อแตกรั่ว 2 นิ้วลงมา', '48 ชั่วโมง', (j) => j.tp === 'P'], ['งานอื่น (วาล์ว ข้อต่อ มาตร ยกหีบ ฯลฯ)', '3 วัน', (j) => !SUP.has(j.tp) && j.tp !== 'M' && j.tp !== 'P']];
+    $('sla-body').replaceChildren(...g.map(([a, b, f]) => { const tr = el('tr'); const n = open.filter((j) => f(j) && j.over).length; tr.append(el('td', {}, a), el('td', {}, b)); const td = el('td', { class: 'n' }); td.appendChild(el('span', { class: 'age' + (n ? ' bad' : '') }, fmt(n))); tr.appendChild(td); return tr; }));
+  }
+
+  // ---------- render ----------
+  const legend = () => $('age-legend').replaceChildren(...AGES.map(([l, , , c]) => { const s = el('span'); const i = el('i'); i.style.background = c; s.append(i, l); return s; }));
+  legend();
+  function render() {
+    syncFilters();
+    const rows = sel();
+    renderTop(rows);
+    if (tab === 'overview') {
+      daily(rows); ageChart(rows);
+      const ch = group(rows, (j) => j.ch).sort((a, b) => b.t - a.t).map((g) => ({ label: CHN[g.k], t: g.t, o: g.o }));
+      hbars('c-channel', ch, { share: true, rh: 24 });
+    }
+    if (tab === 'teams') { teamCards(rows); teamAge(rows); heat('h-team-type', rows, (j) => j.tm, (k) => TMN[k], (j) => j.tp, (k) => TN[k]); }
+    if (tab === 'area') {
+      const tbg = group(rows, (j) => j.tb).sort((a, b) => b.t - a.t).map((g) => ({ key: g.k, label: TBN[g.k], t: g.t, o: g.o }));
+      hbars('c-tambon', tbg, { onClick: (it) => { state.tb = state.tb === it.key ? '' : it.key; render(); } });
+      const tyg = group(rows, (j) => j.tp).sort((a, b) => b.t - a.t).map((g) => ({ label: TN[g.k], t: g.t, o: g.o }));
+      hbars('c-type', tyg);
+      heat('h-tb-type', rows, (j) => j.tb, (k) => TBN[k], (j) => j.tp, (k) => TN[k], 12);
+    }
+    if (tab === 'open') openTabs(rows);
+    if (tab === 'plan') slaTable(rows);
+  }
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 120); });
+  const h = (location.hash || '').slice(1);
+  showTab(TABS.includes(h) ? h : 'overview', false);
+})();
+</script>
+</body></html>
